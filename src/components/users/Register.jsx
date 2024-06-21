@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from '../../hooks/useForm'
 import { Global } from "../../helpers/Global";
 export const Register = () => {
 
   const {changed,form} = useForm({})
-
+  const [saved,savedState] = useState("no_enviado")
   const guardarValores = async (e)=>{
     e.preventDefault()
     let objetoUsuario = form
@@ -18,7 +18,12 @@ export const Register = () => {
     })
 
     const data = await request.json()
-    console.log(data);
+    if (data.status ==='success') {
+      savedState('saved')
+      
+    }else{
+      savedState("error")
+    }
   }
   return (
     <>
@@ -26,6 +31,12 @@ export const Register = () => {
           <h1 className="content__title">Registro</h1>
       </header>
       <div className="content__posts">
+        {saved == "saved" ? <strong className='alert alert-success'>Usuario se registro correctamente</strong>
+        : ""}
+        {saved == "error" ?
+           <strong className='alert alert-danger'>Usuario no se registro</strong>
+        : ""}
+       
           <form className='register-form'>
             <div className='form-group'>
               <label htmlFor="name">Nombre</label>

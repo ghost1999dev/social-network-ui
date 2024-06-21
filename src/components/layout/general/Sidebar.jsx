@@ -1,6 +1,9 @@
 import React from 'react'
 import avatar from "../../../assets/img/user.png";
+import useAuth from '../../../hooks/useAuth';
 export const Sidebar = () => {
+ const {auth,compartido,counter} = useAuth()
+ 
   return (
     <>
         
@@ -30,13 +33,13 @@ export const Sidebar = () => {
                         <div className="stats__following">
                             <a href="#" className="following__link">
                                 <span className="following__title">Siguiendo</span>
-                                <span className="following__number">10</span>
+                                <span className="following__number">{counter.followingCount}</span>
                             </a>
                         </div>
                         <div className="stats__following">
                             <a href="#" className="following__link">
                                 <span className="following__title">Seguidores</span>
-                                <span className="following__number">13</span>
+                                <span className="following__number">{counter.followedCount}</span>
                             </a>
                         </div>
 
@@ -58,12 +61,12 @@ export const Sidebar = () => {
                     <form className="container-form__form-post">
 
                         <div className="form-post__inputs">
-                            <label for="post" className="form-post__label">¿Que estas pesando hoy?</label>
+                            <label htmlFor="post" className="form-post__label">¿Que estas pesando hoy?</label>
                             <textarea name="post" className="form-post__textarea"></textarea>
                         </div>
 
                         <div className="form-post__inputs">
-                            <label for="image" className="form-post__label">Sube tu foto</label>
+                            <label htmlFor="image" className="form-post__label">Sube tu foto</label>
                             <input type="file" name="image" className="form-post__image" />
                         </div>
 
