@@ -5,7 +5,7 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({})
   const [counter, setCounter] = useState({})
-  const [compartido,setCompartido] = useState('Compartido')
+  const [loading,setLoading] = useState(true)
   useEffect(()=>{
      localData()
      counters()
@@ -18,6 +18,7 @@ export const AuthProvider = ({ children }) => {
      //Comprobar si el token y el objeto usuario vienen
      if (!token || !objetoUsuario) {
        return false
+       setLoading(false)
      }
      const objetoParseado = JSON.parse(objetoUsuario)
      const userId = objetoParseado._id
@@ -30,8 +31,8 @@ export const AuthProvider = ({ children }) => {
        }
      })
      const response = await request.json()
-     console.log(response);
      setAuth(response)
+     setLoading(false)
   }
 
   const counters = async()=>{
@@ -41,6 +42,7 @@ export const AuthProvider = ({ children }) => {
     //Verificar si viene el token y el objeto usuario
     if (!token || !objetoUsuario) {
       return false
+      
     }
 
     const objetoParseado = JSON.parse(objetoUsuario)
@@ -57,10 +59,9 @@ export const AuthProvider = ({ children }) => {
 
   return (<AuthContext.Provider
             value={{
-                compartido,
                 auth,
-                counter
-
+                counter,
+                loading
             }}
         >
             {children}

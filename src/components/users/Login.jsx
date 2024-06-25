@@ -5,17 +5,12 @@ import useAuth from '../../hooks/useAuth';
 export const Login = () => {
   const {form,changed} = useForm({})
   const [value,setValue] = useState('')
-  const {compartido} = useAuth()
+  const {setAuth}=useAuth()
   const loginUser = async (e)=>{
     e.preventDefault()
-
     let userToLogin = form
-    console.log(JSON.stringify(  userToLogin));
-    console.log("Enviando datos");
     //Peticion al backend
     try {
-      
-    
     const request = await fetch(Global.url+'/login',{
       method:"POST",
       body:JSON.stringify(userToLogin),
@@ -25,18 +20,21 @@ export const Login = () => {
 
     })
     const data = await request.json()
-    console.log(data);
+    
     if (data.status == 'success') {
-      setValue('success')
       localStorage.setItem('token',data.token)
       localStorage.setItem('usuario',JSON.stringify(data.data))
+      setValue('success')
+      //setAuth(data)
+      setTimeout(() => {
+        window.location.reload()
+      },1000);
     }else{
       setValue('error')
     }
   }catch (error) {
       console.log('Error en la peticion ', error);
   }
-
   }
   return (
     <>

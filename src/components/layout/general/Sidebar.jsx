@@ -2,7 +2,7 @@ import React from 'react'
 import avatar from "../../../assets/img/user.png";
 import useAuth from '../../../hooks/useAuth';
 export const Sidebar = () => {
- const {auth,compartido,counter} = useAuth()
+ const {auth,counter} = useAuth()
  
   return (
     <>
