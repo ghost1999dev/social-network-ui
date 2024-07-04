@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { useForm } from "../../hooks/useForm";
 import {Global } from "../../helpers/Global";
 import useAuth from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 export const Login = () => {
   const {form,changed} = useForm({})
   const [value,setValue] = useState('')
-  const {setAuth}=useAuth()
+  const {auth,setAuth}=useAuth()
+  const navigate = useNavigate()
   const loginUser = async (e)=>{
     e.preventDefault()
     let userToLogin = form
@@ -22,14 +24,12 @@ export const Login = () => {
     const data = await request.json()
     
     if (data.status == 'success') {
-      localStorage.setItem('token',data.token)
-      localStorage.setItem('usuario',JSON.stringify(data.data))
+      localStorage.setItem('usuario',JSON.stringify(data))
       setValue('success')
-      //setAuth(data)
-      setTimeout(() => {
-        window.location.reload()
-      },1000);
+      setAuth(data)
+      navigate("/social")
     }else{
+      
       setValue('error')
     }
   }catch (error) {
@@ -44,11 +44,11 @@ export const Login = () => {
       </header>
       <div className="content__posts">
         {value == 'success' ? 
-          <strong className='alert alert-success'>Usuario identificado correctamente</strong>
+          <strong className='alert alert-success'>{auth.message}</strong>
           : ''
         }
         {value == 'error' ?
-          <strong className='alert alert-danger'>Este usuario no existe en la base de datos</strong>
+          <strong className='alert alert-danger'>{auth.message}</strong>
         :''}
         <form className='login-form' onSubmit={loginUser}>
           <div className='form-group'>

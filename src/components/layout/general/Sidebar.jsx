@@ -1,6 +1,7 @@
 import React from 'react'
 import avatar from "../../../assets/img/user.png";
 import useAuth from '../../../hooks/useAuth';
+import { Global } from '../../../helpers/Global';
 export const Sidebar = () => {
  const {auth,counter} = useAuth()
  
@@ -19,7 +20,7 @@ export const Sidebar = () => {
 
                     <div className="profile-info__general-info">
                         <div className="general-info__container-avatar">
-                            <img src={avatar} className="container-avatar__img" alt="Foto de perfil" />
+                            <img src={Global.url + "/avatar/" + auth.image} className="container-avatar__img" alt="Foto de perfil" />
                         </div>
 
                         <div className="general-info__container-names">

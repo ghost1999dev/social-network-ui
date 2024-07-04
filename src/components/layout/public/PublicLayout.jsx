@@ -4,7 +4,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 export const PublicLayout = () => {
   const {auth,compartido,counter} = useAuth()
-  console.log(auth);
+  
   return (
     <>
         {/*LAYOUT* */}

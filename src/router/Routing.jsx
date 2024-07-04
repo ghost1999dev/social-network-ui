@@ -6,6 +6,8 @@ import { Register } from "../components/users/Register";
 import { PrivateLayout } from "../components/layout/general/PrivateLayout";
 import { Feed } from "../components/publications/Feed";
 import {AuthProvider} from "../context/AuthProvider";
+import { Logout } from "../components/users/Logout";
+import { Config } from "../components/users/Config";
 export const Routing = () => {
   return (
     <BrowserRouter>
@@ -21,6 +23,9 @@ export const Routing = () => {
           {/* Private Routes */}
           <Route path="/social" element={<PrivateLayout />}>
             <Route index element={<Feed />} />
+            <Route path="logout" element={<Logout/>} />
+            <Route path="feed" element={<Feed/>}/>
+            <Route path="ajustes" element={<Config/>}/>
           </Route>
 
           {/* Catch-All Route for 404 */}

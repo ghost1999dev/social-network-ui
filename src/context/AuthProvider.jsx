@@ -7,31 +7,24 @@ export const AuthProvider = ({ children }) => {
   const [counter, setCounter] = useState({})
   const [loading,setLoading] = useState(true)
   useEffect(()=>{
+    console.log("Se activa el useffect");
      localData()
      counters()
   },[])
 
   const localData = async()=>{
      //Sacar el token y el user que esta en localstorage
-     const token = localStorage.getItem("token")
+     
      const objetoUsuario = localStorage.getItem("usuario")
      //Comprobar si el token y el objeto usuario vienen
-     if (!token || !objetoUsuario) {
-       return false
+     if (!objetoUsuario) {
        setLoading(false)
+       return false
+       
      }
      const objetoParseado = JSON.parse(objetoUsuario)
-     const userId = objetoParseado._id
-
-     const request = await fetch(Global.url + '/profile/' + userId,{
-       method:"GET",
-       headers:{
-         'Content-Type':'application/json',
-         'Authorization':`${token}`
-       }
-     })
-     const response = await request.json()
-     setAuth(response)
+     console.log(objetoParseado);
+     setAuth(objetoParseado)
      setLoading(false)
   }
 
@@ -61,7 +54,9 @@ export const AuthProvider = ({ children }) => {
             value={{
                 auth,
                 counter,
-                loading
+                loading,
+                setCounter,
+                setAuth
             }}
         >
             {children}

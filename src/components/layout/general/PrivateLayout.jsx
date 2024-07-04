@@ -5,6 +5,7 @@ import { Sidebar } from "./Sidebar";
 import useAuth from '../../../hooks/useAuth';
 export const PrivateLayout = () => {
   const {auth,loading} = useAuth()
+ 
   if (loading) {
     return <h1>Cargando...</h1>
     
@@ -15,7 +16,7 @@ export const PrivateLayout = () => {
           <Header/>
   
           <section className='layout__content'>
-            {auth.data?._id ?
+            {auth?.data?._id ?
               <Outlet/>
             :<Navigate to="/login"/>}
               
