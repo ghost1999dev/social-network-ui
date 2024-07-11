@@ -9,7 +9,7 @@ export const Register = () => {
     e.preventDefault()
     let objetoUsuario = form
     //Guardar el usuario por fetch
-    const request = await fetch(Global.url +'registro-usuario',{
+    const request = await fetch(Global.url +'/registro-usuario',{
       method:"POST",
       body:JSON.stringify(objetoUsuario),
       headers:{
@@ -20,7 +20,6 @@ export const Register = () => {
     const data = await request.json()
     if (data.status ==='success') {
       savedState('saved')
-      
     }else{
       savedState("error")
     }

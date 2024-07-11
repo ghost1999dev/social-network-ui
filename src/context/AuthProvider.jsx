@@ -31,19 +31,19 @@ export const AuthProvider = ({ children }) => {
   const counters = async()=>{
     const token = localStorage.getItem("token")
     const objetoUsuario = localStorage.getItem("usuario")
-
+    console.log(objetoUsuario);
+    console.log("TOKEN " , token);
     //Verificar si viene el token y el objeto usuario
-    if (!token || !objetoUsuario) {
+    if (!objetoUsuario) {
       return false
-      
     }
 
     const objetoParseado = JSON.parse(objetoUsuario)
-    const request = await fetch(Global.url + '/counters/' + objetoParseado._id,{
+    const request = await fetch(Global.url + '/counters/' + objetoParseado.data._id,{
       method:'GET',
       headers:{
         'Content-Type':'application/json',
-        'Authorization': token
+        'Authorization': objetoParseado.token
       }
     })
     const responseRequest = await request.json()

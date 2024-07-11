@@ -22,14 +22,15 @@ export const Login = () => {
 
     })
     const data = await request.json()
-    
+    console.log(data);
     if (data.status == 'success') {
       localStorage.setItem('usuario',JSON.stringify(data))
+      localStorage.setItem('token',data.token)
       setValue('success')
       setAuth(data)
       navigate("/social")
     }else{
-      
+      setAuth(data)
       setValue('error')
     }
   }catch (error) {

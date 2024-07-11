@@ -5,23 +5,25 @@ import { SerializerData } from "../../helpers/SerializerData";
 import { Global } from "../../helpers/Global";
 export const Config = () => {
     const[saved,setSaved]=useState("no_enviado")
-    const {auth}=useAuth({})
+    const {auth,setAuth}=useAuth({})
     const{changed} = useForm({})
     const editarValores =async (e)=>{
       e.preventDefault()
       const dataObject=SerializerData(e.target)
       delete dataObject.file0
-      console.log(auth.token);
+      
       //Actualizar datos
-      /*const request = await fetch(Global.url + 'update-user',{
+      const request = await fetch(Global.url + '/update-user',{
         method:"PUT",
         body:JSON.stringify(dataObject),
         headers:{
           'Content-Type':'application/json',
-          'Authorization':''
+          'Authorization':auth.token
         }
-      })*/
-     
+      })
+      const responseData = await request.json()
+      localStorage.setItem('usuario', JSON.stringify(responseData))
+      setAuth(responseData)
     }
     
   return (
@@ -32,13 +34,13 @@ export const Config = () => {
       <div className="content__posts">
         {saved == "saved" ? (
           <strong className="alert alert-success">
-            Usuario se registro correctamente
+            Usuario se actualizo correctamente
           </strong>
         ) : (
           ""
         )}
         {saved == "error" ? (
-          <strong className="alert alert-danger">Usuario no se registro</strong>
+          <strong className="alert alert-danger">Usuario no se actualizo</strong>
         ) : (
           ""
         )}

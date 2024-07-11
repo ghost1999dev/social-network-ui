@@ -4,14 +4,12 @@ import useAuth from '../../../hooks/useAuth';
 import { Global } from '../../../helpers/Global';
 export const Sidebar = () => {
  const {auth,counter} = useAuth()
- 
+ console.log(auth);
   return (
     <>
-        
         <aside className="layout__aside">
-
             <header className="aside__header">
-                <h1 className="aside__title">Hola, Fernando</h1>
+                <h1 className="aside__title">Hola, {auth?.data?.name}</h1>
             </header>
 
             <div className="aside__container">
@@ -24,8 +22,8 @@ export const Sidebar = () => {
                         </div>
 
                         <div className="general-info__container-names">
-                            <a href="#" className="container-names__name">FernandoDev</a>
-                            <p className="container-names__nickname">FernandoDev</p>
+                            <a href="#" className="container-names__name">{auth?.data?.name}</a>
+                            <p className="container-names__nickname">{auth?.data?.nick}</p>
                         </div>
                     </div>
 
