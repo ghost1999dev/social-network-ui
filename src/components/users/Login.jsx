@@ -19,10 +19,8 @@ export const Login = () => {
       headers: {
         'Content-Type':'application/json'
       }
-
     })
     const data = await request.json()
-    console.log(data);
     if (data.status == 'success') {
       localStorage.setItem('usuario',JSON.stringify(data))
       localStorage.setItem('token',data.token)

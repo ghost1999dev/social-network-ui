@@ -54,7 +54,7 @@ export const Nav = () => {
         <li className="list-end__item">
           <a href="#" className="list-end__link-image">
             <img
-              src={Global.url + "/avatar/"+ (auth?.image || 'default.jpg')}
+              src={Global.url + "/avatar/"+ (auth?.data?.image || 'default.jpg')}
               className="list-end__img"
               alt="Imagen de perfil"
             />

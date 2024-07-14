@@ -7,37 +7,29 @@ export const AuthProvider = ({ children }) => {
   const [counter, setCounter] = useState({})
   const [loading,setLoading] = useState(true)
   useEffect(()=>{
-    console.log("Se activa el useffect");
      localData()
      counters()
   },[])
 
   const localData = async()=>{
      //Sacar el token y el user que esta en localstorage
-     
      const objetoUsuario = localStorage.getItem("usuario")
      //Comprobar si el token y el objeto usuario vienen
      if (!objetoUsuario) {
        setLoading(false)
        return false
-       
      }
      const objetoParseado = JSON.parse(objetoUsuario)
-     console.log(objetoParseado);
      setAuth(objetoParseado)
      setLoading(false)
   }
-
   const counters = async()=>{
     const token = localStorage.getItem("token")
     const objetoUsuario = localStorage.getItem("usuario")
-    console.log(objetoUsuario);
-    console.log("TOKEN " , token);
     //Verificar si viene el token y el objeto usuario
     if (!objetoUsuario) {
       return false
     }
-
     const objetoParseado = JSON.parse(objetoUsuario)
     const request = await fetch(Global.url + '/counters/' + objetoParseado.data._id,{
       method:'GET',
@@ -49,7 +41,6 @@ export const AuthProvider = ({ children }) => {
     const responseRequest = await request.json()
     setCounter(responseRequest)
   }
-
   return (<AuthContext.Provider
             value={{
                 auth,
@@ -61,7 +52,6 @@ export const AuthProvider = ({ children }) => {
         >
             {children}
     </AuthContext.Provider>
-    
   );
 };
 
