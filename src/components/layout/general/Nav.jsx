@@ -24,9 +24,9 @@ export const Nav = () => {
         </li>
 
         <li className="menu-list__item">
-          <NavLink to="/social/personas" className="menu-list__link">
+          <NavLink to="/social/gente" className="menu-list__link">
             <i className="fa-solid fa-user"></i>
-            <span className="menu-list__title">Gente</span>
+            <span className="menu-list__title">Usuarios</span>
           </NavLink>
         </li>
 

@@ -94,7 +94,7 @@ export const Config = () => {
 
           <div className="form-group">
             <label htmlFor="email">Correo electronico</label>
-            <input type="email" name="email" defaultValue={auth.data.email}  />
+            <input type="email" name="email" defaultValue={auth?.data?.email}  />
           </div>
 
           <div className="form-group">
