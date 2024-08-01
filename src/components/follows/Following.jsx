@@ -2,22 +2,25 @@ import React, { useEffect, useState } from "react";
 import avatar from "../../assets/img/user.png";
 import { Global } from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
-import { UserList } from "./UserList";
+import { UserList } from "../users/UserList";
+import { useParams } from "react-router-dom";
 
-export const People = () => {
+
+export const Following = () => {
   const { auth } = useAuth();
   const [users, setUsers] = useState([]);
   const [more, setMore] = useState(true);
   const [following, setFollowing] = useState([]);
   //Estado paginacion
   const [page, setPage] = useState(1);
+  //Parametro que viene de la ruta
+  const {userId}=useParams()
   useEffect(() => {
-    console.log(auth);
     getUsers(1);
   }, []);
   const getUsers = async (nextPage = 1) => {
     //Primero hacer el fetch
-    const dataUsuario = await fetch(Global.url + "/pagination/" + nextPage, {
+    const dataUsuario = await fetch(Global.url + "/following/" + userId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -25,12 +28,18 @@ export const People = () => {
       },
     });
     const dataResponseUsers = await dataUsuario.json();
-    let newUsers = dataResponseUsers.users;
+    console.log(dataResponseUsers);
+    const usersResponse = dataResponseUsers
+    let cleanUsers = []
+    usersResponse.users.forEach(follow =>{
+      cleanUsers =[...cleanUsers,follow.followed]
+    })
+    usersResponse.users=cleanUsers
+    let newUsers = usersResponse.users;
     if (users.length >= 1) {
       newUsers = [...users, ...dataResponseUsers.users];
     }
     setUsers(newUsers);
-    console.log(dataResponseUsers);
     setFollowing(dataResponseUsers.user_following);
     if (
       users.length >=
@@ -43,10 +52,9 @@ export const People = () => {
     <>
       <section className="layout__content">
         <header className="content__header">
-          <h1 className="content__title">Usuarios</h1>
+          <h1 className="content__title">Usuarios que sigue</h1>
         </header>
-
-        <UserList
+        {<UserList
           users={users}
           setUsers={setUsers}
           following={following}
@@ -56,7 +64,7 @@ export const People = () => {
           page={page}
           setPage={setPage}
           getUsers={getUsers}
-        />
+        />}
       </section>
     </>
   );

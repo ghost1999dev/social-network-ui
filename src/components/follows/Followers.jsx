@@ -4,7 +4,10 @@ import { Global } from "../../helpers/Global";
 import useAuth from "../../hooks/useAuth";
 import { UserList } from "./UserList";
 
-export const People = () => {
+
+//FERNANDODEV
+//MAKING THE CODE
+export const Following = () => {
   const { auth } = useAuth();
   const [users, setUsers] = useState([]);
   const [more, setMore] = useState(true);
@@ -17,7 +20,7 @@ export const People = () => {
   }, []);
   const getUsers = async (nextPage = 1) => {
     //Primero hacer el fetch
-    const dataUsuario = await fetch(Global.url + "/pagination/" + nextPage, {
+    const dataUsuario = await fetch(Global.url + "/following/" + nextPage + "/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -9,6 +9,8 @@ import {AuthProvider} from "../context/AuthProvider";
 import { Logout } from "../components/users/Logout";
 import { Config } from "../components/users/Config";
 import { People } from "../components/users/People";
+
+import { Following } from "../components/follows/Following";
 export const Routing = () => {
   return (
     <BrowserRouter>
@@ -28,6 +30,7 @@ export const Routing = () => {
             <Route path="feed" element={<Feed/>}/>
             <Route path="ajustes" element={<Config/>}/>
             <Route path="gente" element={<People/>}/>
+            <Route path="userList/:userId" element={<Following/>}/>
           </Route>
 
           {/* Catch-All Route for 404 */}
